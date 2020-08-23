@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:rshb_catalog/domain/bloc/catalog_bloc.dart';
-import 'package:rshb_catalog/domain/model/farmer.dart';
 import 'package:rshb_catalog/domain/model/product.dart';
 import 'package:rshb_catalog/internal/dependencies/catalog_module.dart';
 
@@ -20,6 +19,7 @@ class _CatalogScreenState extends State<CatalogScreen>
   static const _TABS = ['Продукты', 'Фермеры', 'Агротуры'];
   final _catalogBloc = CatalogModule.catalogBloc();
   TabController _tabController;
+  List<Product> _products = [];
 
   @override
   void initState() {
@@ -86,51 +86,63 @@ class _CatalogScreenState extends State<CatalogScreen>
   }
 
   Widget _getTabBarView() {
+    return TabBarView(
+      controller: _tabController,
+      children: [
+        _getProducts(),
+        _getFarmers(),
+        _getTours(),
+      ],
+    );
+  }
+
+  Widget _getProducts() {
     return BlocBuilder<CatalogBloc, CatalogState>(
       bloc: _catalogBloc,
       builder: (context, state) {
-        if (_tabController == null) return Container();
-
-        List<Product> products = [];
-        List<Farmer> farmers = [];
-        if (state is CatalogReadyState) {
-          products = state.products;
-          farmers = state.farmers;
+        if (state is CatalogLoadingState) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
         }
 
-        return TabBarView(
-          controller: _tabController,
-          children: [
-            CustomScrollView(
-              slivers: [
-                SliverPadding(
-                  padding: EdgeInsets.only(
-                    top: 20,
-                    bottom: 16,
-                    left: 16,
-                    right: 16,
-                  ),
-                  sliver: ProductsGrid(
-                    products: products,
-                    farmers: farmers,
-                    onFavoriteTap: _changeFavorite,
-                  ),
-                ),
-              ],
-            ),
-            Center(
-              child: Container(
-                child: Text('Фермеры'),
+        if (state is CatalogReadyState) {
+          _products = state.products;
+        }
+
+        return CustomScrollView(
+          slivers: [
+            SliverPadding(
+              padding: EdgeInsets.only(
+                top: 20,
+                bottom: 16,
+                left: 16,
+                right: 16,
               ),
-            ),
-            Center(
-              child: Container(
-                child: Text('Агротуры'),
+              sliver: ProductsGrid(
+                products: _products,
+                onFavoriteTap: _changeFavorite,
               ),
             ),
           ],
         );
       },
+    );
+  }
+
+  Widget _getFarmers() {
+    return Center(
+      child: Container(
+        child: Text('Фермеры'),
+      ),
+    );
+  }
+
+  Widget _getTours() {
+    return Center(
+      child: Container(
+        child: Text('Агротуры'),
+      ),
     );
   }
 

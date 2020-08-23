@@ -5,13 +5,11 @@ import 'package:rshb_catalog/presentation/design/rating.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
-  final String farmerTitle;
   final VoidCallback onFavoriteTap;
 
   const ProductCard({
     Key key,
     @required this.product,
-    @required this.farmerTitle,
     this.onFavoriteTap,
   }) : super(key: key);
 
@@ -144,7 +142,7 @@ class ProductCard extends StatelessWidget {
 
   Widget _getFarmerName() {
     return Text(
-      farmerTitle,
+      product.farmer?.title ?? '',
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(

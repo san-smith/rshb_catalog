@@ -1,12 +1,12 @@
 import 'package:meta/meta.dart';
 
+import 'farmer.dart';
 import 'product_characteristic.dart';
 
 class Product {
   final int id;
   final int sectionId;
   final int categoryId;
-  final int farmerId;
   final String title;
   final String unit;
   final double totalRating;
@@ -16,13 +16,13 @@ class Product {
   final String description;
   final double price;
   final bool favorite;
+  final Farmer farmer;
   final List<ProductCharacteristic> characteristics;
 
   Product({
     @required this.id,
     @required this.sectionId,
     @required this.categoryId,
-    @required this.farmerId,
     @required this.title,
     @required this.unit,
     @required this.totalRating,
@@ -32,6 +32,7 @@ class Product {
     @required this.description,
     @required this.price,
     @required this.favorite,
+    @required this.farmer,
     @required this.characteristics,
   });
 
@@ -40,7 +41,6 @@ class Product {
       id: id,
       sectionId: sectionId,
       categoryId: categoryId,
-      farmerId: farmerId,
       title: title,
       unit: unit,
       totalRating: totalRating,
@@ -50,6 +50,7 @@ class Product {
       description: description,
       price: price,
       favorite: favorite,
+      farmer: farmer,
       characteristics: characteristics,
     );
   }

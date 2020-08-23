@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 
-import 'package:rshb_catalog/domain/model/farmer.dart';
 import 'package:rshb_catalog/domain/model/product.dart';
 import 'package:rshb_catalog/presentation/catalog/widgets/product_card.dart';
 
 class ProductsGrid extends StatelessWidget {
   final List<Product> products;
-  final List<Farmer> farmers;
   final Function(int productId) onFavoriteTap;
 
   const ProductsGrid({
     Key key,
     @required this.products,
-    @required this.farmers,
     this.onFavoriteTap,
   }) : super(key: key);
 
@@ -24,10 +21,6 @@ class ProductsGrid extends StatelessWidget {
       children: products
           .map((product) => ProductCard(
                 product: product,
-                farmerTitle: farmers
-                        .firstWhere((it) => it.id == product.farmerId)
-                        ?.title ??
-                    '',
                 onFavoriteTap: () => onFavoriteTap(product.id),
               ))
           .toList(),
