@@ -5,12 +5,14 @@ import 'package:rshb_catalog/presentation/catalog/widgets/product_card.dart';
 
 class ProductsGrid extends StatelessWidget {
   final List<Product> products;
-  final Function(int productId) onFavoriteTap;
+  final Function(int) onFavoriteTap;
+  final Function(Product) onTap;
 
   const ProductsGrid({
     Key key,
     @required this.products,
     this.onFavoriteTap,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -22,6 +24,7 @@ class ProductsGrid extends StatelessWidget {
           .map((product) => ProductCard(
                 product: product,
                 onFavoriteTap: () => onFavoriteTap(product.id),
+                onTap: () => onTap(product),
               ))
           .toList(),
     );

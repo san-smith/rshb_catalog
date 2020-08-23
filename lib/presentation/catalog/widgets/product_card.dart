@@ -5,11 +5,13 @@ import 'package:rshb_catalog/presentation/design/rating.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
+  final VoidCallback onTap;
   final VoidCallback onFavoriteTap;
 
   const ProductCard({
     Key key,
     @required this.product,
+    this.onTap,
     this.onFavoriteTap,
   }) : super(key: key);
 
@@ -29,17 +31,20 @@ class ProductCard extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: Column(
-            children: [
-              Expanded(
-                child: _getHeader(),
-                flex: 4,
-              ),
-              Expanded(
-                child: _getBody(),
-                flex: 6,
-              ),
-            ],
+          child: GestureDetector(
+            child: Column(
+              children: [
+                Expanded(
+                  child: _getHeader(),
+                  flex: 4,
+                ),
+                Expanded(
+                  child: _getBody(),
+                  flex: 6,
+                ),
+              ],
+            ),
+            onTap: onTap,
           ),
         ),
       ),

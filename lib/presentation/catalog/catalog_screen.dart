@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rshb_catalog/domain/bloc/catalog_bloc.dart';
 import 'package:rshb_catalog/domain/model/product.dart';
 import 'package:rshb_catalog/internal/dependencies/catalog_module.dart';
+import 'package:rshb_catalog/presentation/product/product_screen.dart';
 
 import 'widgets/section_tab.dart';
 import 'widgets/section_tab_bar.dart';
@@ -122,6 +123,7 @@ class _CatalogScreenState extends State<CatalogScreen>
               sliver: ProductsGrid(
                 products: _products,
                 onFavoriteTap: _changeFavorite,
+                onTap: _goToProductScreen,
               ),
             ),
           ],
@@ -148,5 +150,12 @@ class _CatalogScreenState extends State<CatalogScreen>
 
   void _changeFavorite(int id) {
     _catalogBloc.add(CatalogChangeFavoriteEvent(id));
+  }
+
+  void _goToProductScreen(Product product) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ProductScreen(product: product)),
+    );
   }
 }
