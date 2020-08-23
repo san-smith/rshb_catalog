@@ -1,18 +1,4 @@
 {
-    "sections": [
-        {
-            "id": 1,
-            "title": "Продукты"
-        },
-        {
-            "id": 2,
-            "title": "Фермеры"
-        },
-        {
-            "id": 3,
-            "title": "Агротуры"
-        }
-    ],
     "categories": [
         {
             "id": 1,
@@ -75,11 +61,41 @@
             "sectionId": 1,
             "categoryId": 4,
             "farmerId": 2,
+            "title": "Куриные ножки",
+            "unit": "1кг",
+            "totalRating": 1,
+            "ratingCount": 1,
+            "image": "assets/images/products/3.jpg",
+            "shortDescription": "Lorem ipsum sit amen...",
+            "description": "...",
+            "price": 250.0,
+            "characteristics": []
+        },
+        {
+            "id": 3,
+            "sectionId": 1,
+            "categoryId": 4,
+            "farmerId": 2,
             "title": "Курица",
             "unit": "1кг",
             "totalRating": 0,
             "ratingCount": 0,
-            "image": "assets/images/products/2.png",
+            "image": "assets/images/products/2.jpg",
+            "shortDescription": "...",
+            "description": "...",
+            "price": 250.0,
+            "characteristics": []
+        },
+        {
+            "id": 4,
+            "sectionId": 1,
+            "categoryId": 4,
+            "farmerId": 2,
+            "title": "Колбаса",
+            "unit": "1кг",
+            "totalRating": 3.5,
+            "ratingCount": 2,
+            "image": "assets/images/products/1.png",
             "shortDescription": "...",
             "description": "...",
             "price": 250.0,

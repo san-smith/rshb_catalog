@@ -15,6 +15,7 @@ class Product {
   final String shortDescription;
   final String description;
   final double price;
+  final bool favorite;
   final List<ProductCharacteristic> characteristics;
 
   Product({
@@ -30,6 +31,26 @@ class Product {
     @required this.shortDescription,
     @required this.description,
     @required this.price,
+    @required this.favorite,
     @required this.characteristics,
   });
+
+  Product copyWith({bool favorite}) {
+    return Product(
+      id: id,
+      sectionId: sectionId,
+      categoryId: categoryId,
+      farmerId: farmerId,
+      title: title,
+      unit: unit,
+      totalRating: totalRating,
+      ratingCount: ratingCount,
+      image: image,
+      shortDescription: shortDescription,
+      description: description,
+      price: price,
+      favorite: favorite,
+      characteristics: characteristics,
+    );
+  }
 }

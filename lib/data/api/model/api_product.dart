@@ -13,6 +13,7 @@ class ApiProduct {
   final String shortDescription;
   final String description;
   final num price;
+  final bool favorite;
   final List<ApiProductCharacteristic> characteristics;
 
   ApiProduct.fromMap(Map<String, dynamic> map)
@@ -28,6 +29,7 @@ class ApiProduct {
         shortDescription = map['shortDescription'],
         description = map['description'],
         price = map['price'],
+        favorite = map['favorite'] ?? false,
         characteristics = List.of(map['characteristics'])
             .map((it) => ApiProductCharacteristic.fromMap(it))
             .toList(growable: false);

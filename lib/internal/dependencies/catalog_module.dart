@@ -7,7 +7,6 @@ class CatalogModule {
       RepositoryModule.categoryRepository(),
       RepositoryModule.farmerRepository(),
       RepositoryModule.productRepository(),
-      RepositoryModule.sectionRepository(),
     );
   }
 }

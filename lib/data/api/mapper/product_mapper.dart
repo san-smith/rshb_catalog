@@ -17,6 +17,7 @@ class ProductMapper {
       shortDescription: product.shortDescription,
       description: product.description,
       price: product.price.toDouble(),
+      favorite: product.favorite,
       characteristics: product.characteristics
           .map((it) => ProductCharacteristicMapper.fromApi(it))
           .toList(growable: false),
