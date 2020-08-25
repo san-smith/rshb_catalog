@@ -4,5 +4,5 @@ class ApiProductCharacteristic {
 
   ApiProductCharacteristic.fromMap(Map<String, dynamic> map)
       : title = map['title'],
-        value = map['title'];
+        value = map['value'];
 }

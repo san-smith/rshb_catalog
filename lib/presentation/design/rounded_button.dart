@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CategoryItem extends StatelessWidget {
+class RoundedButton extends StatelessWidget {
   final String title;
   final String iconUri;
   final bool active;
   final VoidCallback onTap;
 
-  const CategoryItem({
+  const RoundedButton({
     Key key,
     @required this.title,
     this.iconUri,

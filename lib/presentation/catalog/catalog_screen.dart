@@ -6,12 +6,12 @@ import 'package:rshb_catalog/domain/bloc/category_bloc.dart';
 import 'package:rshb_catalog/domain/model/category.dart';
 import 'package:rshb_catalog/domain/model/product.dart';
 import 'package:rshb_catalog/internal/dependencies/catalog_module.dart';
+import 'package:rshb_catalog/presentation/design/rounded_button.dart';
 import 'package:rshb_catalog/presentation/product/product_screen.dart';
 
 import 'widgets/section_tab.dart';
 import 'widgets/section_tab_bar.dart';
 import 'widgets/products_grid.dart';
-import 'widgets/category_item.dart';
 
 class CatalogScreen extends StatefulWidget {
   @override
@@ -120,7 +120,7 @@ class _CatalogScreenState extends State<CatalogScreen>
                 return _getSortButton();
               }
               final category = _categories[index - 1];
-              return CategoryItem(
+              return RoundedButton(
                 title: category.title,
                 iconUri: category.iconUri,
                 active: _category != null && _category.id == category.id,
@@ -141,7 +141,7 @@ class _CatalogScreenState extends State<CatalogScreen>
           _sortByPrice = state.sortByPrice;
         }
 
-        return CategoryItem(
+        return RoundedButton(
           title: 'Сортировать',
           active: _sortByPrice,
           onTap: _sortProducts,
@@ -219,7 +219,12 @@ class _CatalogScreenState extends State<CatalogScreen>
   void _goToProductScreen(Product product) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ProductScreen(product: product)),
+      MaterialPageRoute(
+        builder: (context) => ProductScreen(
+          product: product,
+          onFavoriteTap: () => _changeFavorite(product.id),
+        ),
+      ),
     );
   }
 

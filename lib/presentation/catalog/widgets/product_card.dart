@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:rshb_catalog/domain/model/product.dart';
+import 'package:rshb_catalog/presentation/design/favorite_button.dart';
 import 'package:rshb_catalog/presentation/design/rating.dart';
 
 class ProductCard extends StatelessWidget {
@@ -17,21 +17,21 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Container(
-        decoration: BoxDecoration(
+    return GestureDetector(
+      child: Card(
+        elevation: 0,
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: Color(0xFFE0E0E0),
-          ),
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: GestureDetector(
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: Color(0xFFE0E0E0),
+            ),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
             child: Column(
               children: [
                 Expanded(
@@ -44,10 +44,10 @@ class ProductCard extends StatelessWidget {
                 ),
               ],
             ),
-            onTap: onTap,
           ),
         ),
       ),
+      onTap: onTap,
     );
   }
 
@@ -69,22 +69,8 @@ class ProductCard extends StatelessWidget {
   }
 
   Widget _getFavoriteButton() {
-    return GestureDetector(
-      child: Container(
-        height: 32,
-        width: 32,
-        padding: EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: Color(0xFFBDBDBD),
-          ),
-        ),
-        child: product.favorite
-            ? SvgPicture.asset('assets/icons/favorite_filled.svg')
-            : SvgPicture.asset('assets/icons/favorite.svg'),
-      ),
+    return FavoriteButton(
+      active: product.favorite,
       onTap: onFavoriteTap,
     );
   }
