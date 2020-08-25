@@ -1,21 +1,38 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
+import 'package:rshb_catalog/domain/bloc/category_bloc.dart';
+import 'package:rshb_catalog/domain/model/category.dart';
 import 'package:rshb_catalog/domain/model/product.dart';
 import 'package:rshb_catalog/domain/repository/product_repository.dart';
 
 class CatalogBloc extends Bloc<CatalogEvent, CatalogState> {
   final ProductRepository _productRepository;
+  final CategoryBloc categoryBloc;
 
   CatalogBloc(
     this._productRepository,
-  );
+    this.categoryBloc,
+  ) {
+    categoryBloc.listen((state) {
+      if (state is CategoryChangedState) {
+        this.add(CatalogFilterEvent(state.category));
+      }
+    });
+  }
 
   List<Product> _products = [];
   bool _sortByPrice = false;
+  Category _currentCategory;
 
   @override
   CatalogState get initialState => CatalogInitialState();
+
+  @override
+  Future<void> close() {
+    categoryBloc.close();
+    return super.close();
+  }
 
   @override
   Stream<CatalogState> mapEventToState(CatalogEvent event) async* {
@@ -25,6 +42,8 @@ class CatalogBloc extends Bloc<CatalogEvent, CatalogState> {
       yield* _mapCatalogChangeFavoriteEventToState(event);
     } else if (event is CatalogSortEvent) {
       yield* _mapCatalogSortEventToState();
+    } else if (event is CatalogFilterEvent) {
+      yield* _mapCatalogFilterEventToState(event);
     }
   }
 
@@ -34,10 +53,7 @@ class CatalogBloc extends Bloc<CatalogEvent, CatalogState> {
       final data = await _productRepository.getProducts();
       _products = data;
       _sortProductsByRating();
-      yield CatalogReadyState(
-        products: _products,
-        sortByPrice: _sortByPrice,
-      );
+      yield* _getCatalogReadyState();
     } catch (e) {
       yield CatalogErrorState(e.toString());
     }
@@ -48,10 +64,7 @@ class CatalogBloc extends Bloc<CatalogEvent, CatalogState> {
     final index = _products.indexWhere((it) => it.id == event.productId);
     _products[index] =
         _products[index].copyWith(favorite: !_products[index].favorite);
-    yield CatalogReadyState(
-      products: _products,
-      sortByPrice: _sortByPrice,
-    );
+    yield* _getCatalogReadyState();
   }
 
   Stream<CatalogState> _mapCatalogSortEventToState() async* {
@@ -61,10 +74,30 @@ class CatalogBloc extends Bloc<CatalogEvent, CatalogState> {
     } else {
       _sortProductsByRating();
     }
-    yield CatalogReadyState(
-      products: _products,
-      sortByPrice: _sortByPrice,
-    );
+    yield* _getCatalogReadyState();
+  }
+
+  Stream<CatalogState> _mapCatalogFilterEventToState(
+      CatalogFilterEvent event) async* {
+    _currentCategory = event.category;
+    yield* _getCatalogReadyState();
+  }
+
+  Stream<CatalogState> _getCatalogReadyState() async* {
+    if (_currentCategory == null) {
+      yield CatalogReadyState(
+        products: _products,
+        sortByPrice: _sortByPrice,
+      );
+    } else {
+      final products = _products
+          .where((it) => it.categoryId == _currentCategory.id)
+          .toList();
+      yield CatalogReadyState(
+        products: products,
+        sortByPrice: _sortByPrice,
+      );
+    }
   }
 
   void _sortProductsByRating() {
@@ -113,3 +146,9 @@ class CatalogChangeFavoriteEvent extends CatalogEvent {
 }
 
 class CatalogSortEvent extends CatalogEvent {}
+
+class CatalogFilterEvent extends CatalogEvent {
+  final Category category;
+
+  CatalogFilterEvent(this.category);
+}

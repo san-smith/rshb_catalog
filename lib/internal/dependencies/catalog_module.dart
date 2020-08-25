@@ -6,6 +6,7 @@ class CatalogModule {
   static CatalogBloc catalogBloc() {
     return CatalogBloc(
       RepositoryModule.productRepository(),
+      categoryBloc(),
     );
   }
 

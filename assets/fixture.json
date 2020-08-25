@@ -89,9 +89,9 @@
         {
             "id": 4,
             "sectionId": 1,
-            "categoryId": 4,
+            "categoryId": 1,
             "farmerId": 2,
-            "title": "Колбаса",
+            "title": "Арбуз",
             "unit": "1кг",
             "totalRating": 3.5,
             "ratingCount": 2,
