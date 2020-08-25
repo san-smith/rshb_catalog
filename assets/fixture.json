@@ -4,19 +4,19 @@
             "id": 1,
             "sectionId": 1,
             "title": "Овощи и фрукты",
-            "iconUri": null
+            "iconUri": "assets/icons/veg_icon.svg"
         },
         {
             "id": 2,
             "sectionId": 1,
             "title": "Хлеб и выпечка",
-            "iconUri": null
+            "iconUri": "assets/icons/bread_icon.svg"
         },
         {
             "id": 3,
             "sectionId": 1,
             "title": "Молоко и яйца",
-            "iconUri": null
+            "iconUri": "assets/icons/milk_icon.svg"
         },
         {
             "id": 4,
@@ -95,17 +95,38 @@
         {
             "id": 2,
             "sectionId": 1,
-            "categoryId": 4,
+            "categoryId": 5,
             "farmerId": 2,
-            "title": "Куриные ножки",
+            "title": "Лосось",
             "unit": "1кг",
-            "totalRating": 1,
-            "ratingCount": 1,
+            "totalRating": 5,
+            "ratingCount": 3,
             "image": "assets/images/products/3.jpg",
-            "shortDescription": "Lorem ipsum sit amen...",
-            "description": "...",
-            "price": 50.0,
-            "characteristics": []
+            "shortDescription": "Лососёвые (лат. Salmonidae) — семейство в отряде лососеобразных.",
+            "description": "Лососёвые (лат. Salmonidae) — семейство в отряде лососеобразных (Salmoniformes). В составе семейства представлены как анадромные, так и пресноводные виды рыб. Наиболее известные представители — сёмга, горбуша, кета, нельма, нерка, кижуч, чавыча, кумжа, сиг, омуль, голец, хариус, таймень, ленок. Хорошо известные собирательные названия нескольких разных видов — лосось и форель. Лососёвые обитают в Атлантическом и Тихом океанах, а также в пресных водах Северного полушария, в средних и северных широтах. Крупнейшие естественные нерестилища лососёвых расположены на Камчатке, Сахалине и Курилах. Большинство лососёвых являются ценными промысловыми рыбами. Активная добыча лососёвых ведется не только ради ценного красного мяса, но и ради красной икры. Объект культивирования и искусственного разведения — сёмга, тихоокеанские лососи, различные виды форелей. ",
+            "price": 1550.0,
+            "characteristics": [
+                {
+                    "title": "Вес продукта",
+                    "value": "1,000 кг"
+                },
+                {
+                    "title": "Вес продукта с упаковкой",
+                    "value": "1,000 кг"
+                },
+                {
+                    "title": "Категория",
+                    "value": "Рыба"
+                },
+                {
+                    "title": "Тип маркировки",
+                    "value": "Столовое"
+                },
+                {
+                    "title": "Срок годности",
+                    "value": "7 суток"
+                }
+            ]
         },
         {
             "id": 3,
@@ -120,7 +141,24 @@
             "shortDescription": "...",
             "description": "...",
             "price": 250.0,
-            "characteristics": []
+            "characteristics": [
+                {
+                    "title": "Вес продукта",
+                    "value": "1,680 кг"
+                },
+                {
+                    "title": "Вес продукта с упаковкой",
+                    "value": "1,700 кг"
+                },
+                {
+                    "title": "Категория",
+                    "value": "Сырный продукт"
+                },
+                {
+                    "title": "Тип маркировки",
+                    "value": "Столовое"
+                }
+            ]
         },
         {
             "id": 4,
@@ -135,6 +173,36 @@
             "shortDescription": "...",
             "description": "...",
             "price": 250.0,
+            "characteristics": []
+        },
+        {
+            "id": 5,
+            "sectionId": 1,
+            "categoryId": 2,
+            "farmerId": 2,
+            "title": "Батон",
+            "unit": "1шт",
+            "totalRating": 2.9,
+            "ratingCount": 12,
+            "image": "assets/images/products/1.png",
+            "shortDescription": "Батон - хлебобулочное изделие",
+            "description": "...",
+            "price": 25.0,
+            "characteristics": []
+        },
+        {
+            "id": 5,
+            "sectionId": 1,
+            "categoryId": 2,
+            "farmerId": 2,
+            "title": "Батон",
+            "unit": "1шт",
+            "totalRating": 2.9,
+            "ratingCount": 12,
+            "image": "assets/images/products/1.png",
+            "shortDescription": "Батон - хлебобулочное изделие",
+            "description": "...",
+            "price": 25.0,
             "characteristics": []
         }
     ],

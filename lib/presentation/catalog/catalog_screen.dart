@@ -144,6 +144,7 @@ class _CatalogScreenState extends State<CatalogScreen>
         return RoundedButton(
           title: 'Сортировать',
           active: _sortByPrice,
+          iconUri: 'assets/icons/sort_icon.svg',
           onTap: _sortProducts,
         );
       },
