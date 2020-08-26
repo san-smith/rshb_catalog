@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:path_provider/path_provider.dart';
 import 'package:rshb_catalog/data/api/model/api_category.dart';
 import 'package:rshb_catalog/data/api/model/api_product.dart';
 
@@ -13,7 +15,13 @@ class FakeServer {
   static Map<String, dynamic> _fixture;
 
   Future<void> _loadFixture() async {
-    final data = await rootBundle.loadString('assets/fixture.json');
+    String data = await _readDataFromFixture();
+    if (data == null) {
+      data = await rootBundle.loadString('assets/fixture.json');
+      _fixture = json.decode(data);
+      _writeDataToFile();
+    }
+
     _fixture = json.decode(data);
     List<dynamic> farmers = _fixture['farmers'];
     List.of(_fixture['products']).forEach((it) {
@@ -23,6 +31,32 @@ class FakeServer {
       );
       it['farmer'] = farmer;
     });
+  }
+
+  Future<String> _getLocalPath() async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    return directory.path;
+  }
+
+  Future<File> _getLocalFile() async {
+    final path = await _getLocalPath();
+    return File('$path/fixture.json');
+  }
+
+  Future<String> _readDataFromFixture() async {
+    try {
+      final file = await _getLocalFile();
+      String contents = await file.readAsString();
+      return contents;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<File> _writeDataToFile() async {
+    final file = await _getLocalFile();
+    return file.writeAsString(json.encode(_fixture));
   }
 
   Future<List<ApiCategory>> getCategories() {
@@ -47,5 +81,12 @@ class FakeServer {
           .map((it) => ApiProduct.fromMap(it))
           .toList(growable: false);
     });
+  }
+
+  Future<void> productChangeFavorite(int id) async {
+    final product =
+        List.of(_fixture['products']).firstWhere((it) => it['id'] == id);
+    product['favorite'] = !product['favorite'];
+    await _writeDataToFile();
   }
 }

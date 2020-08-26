@@ -11,4 +11,9 @@ class ProductDataRepository extends ProductRepository {
   Future<List<Product>> getProducts() {
     return _apiUtil.getProducts();
   }
+
+  @override
+  Future<void> productChangeFavorite(int id) {
+    return _apiUtil.productChangeFavorite(id);
+  }
 }

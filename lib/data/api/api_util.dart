@@ -28,4 +28,8 @@ class ApiUtil {
         .map((it) => ProductMapper.fromApi(it))
         .toList(growable: false);
   }
+
+  Future<void> productChangeFavorite(int id) async {
+    return _server.productChangeFavorite(id);
+  }
 }

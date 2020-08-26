@@ -64,6 +64,7 @@ class CatalogBloc extends Bloc<CatalogEvent, CatalogState> {
     final index = _products.indexWhere((it) => it.id == event.productId);
     _products[index] =
         _products[index].copyWith(favorite: !_products[index].favorite);
+    await _productRepository.productChangeFavorite(event.productId);
     yield* _getCatalogReadyState();
   }
 
